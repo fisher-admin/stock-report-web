@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 A股量化精选报告</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            position: relative;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--card);
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        /* Chart Section */
+        .chart-section {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .chart-section h2 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        /* Stock List */
+        .stock-section {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stock-section h2 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .stock-grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .stock-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 15px;
+            align-items: center;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .stock-card:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .stock-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .stock-info .code {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .stock-metrics {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .metric-value.positive { color: var(--success); }
+        .metric-value.negative { color: var(--danger); }
+        .metric-value.neutral { color: var(--warning); }
+
+        .metric-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .stock-score {
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .score-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            background: conic-gradient(var(--primary) calc(var(--score) * 3.6deg), rgba(255,255,255,0.1) 0);
+            position: relative;
+        }
+
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: var(--card);
+            border-radius: 50%;
+        }
+
+        .score-circle span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Highlights */
+        .highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .highlight-card {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(124, 58, 237, 0.2));
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .highlight-card h3 {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .highlight-item {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .highlight-item:last-child {
+            border-bottom: none;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-left: 10px;
+        }
+
+        .tag.success { background: rgba(16, 185, 129, 0.3); color: var(--success); }
+        .tag.warning { background: rgba(245, 158, 11, 0.3); color: var(--warning); }
+        .tag.danger { background: rgba(239, 68, 68, 0.3); color: var(--danger); }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            .stock-card { grid-template-columns: 1fr; }
+            .stock-metrics { justify-content: space-around; }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>🤖 A股量化精选报告</h1>
+            <p>深市CYQ筹码分析 | 2026-02-09</p>
+        </header>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="totalStocks">-</div>
+                <div class="stat-label">入选数量</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avgScore">-</div>
+                <div class="stat-label">平均得分</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avgChange">-</div>
+                <div class="stat-label">平均涨幅</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="highVolume">-</div>
+                <div class="stat-label">高量比(>2.0)</div>
+            </div>
+        </div>
+
+        <!-- Highlights -->
+        <div class="highlights">
+            <div class="highlight-card">
+                <h3>🚀 放量突破</h3>
+                <div id="breakoutList"></div>
+            </div>
+            <div class="highlight-card">
+                <h3>💎 筹码集中</h3>
+                <div id="concentratedList"></div>
+            </div>
+        </div>
+
+        <!-- Stock List -->
+        <div class="stock-section">
+            <h2>📊 精选股票列表</h2>
+            <div class="stock-grid" id="stockList">
+                <div class="loading"><div class="spinner"></div></div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="chart-section">
+            <h2>📈 涨跌幅分布</h2>
+            <div class="chart-container">
+                <canvas id="changeChart"></canvas>
+            </div>
+        </div>
+
+        <footer>
+            <p>🤖 数据来源: SQLite历史CYQ + Excel行情 | 更新: 2026-02-09</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Stock Data
+        const stockData = [
+            { name: "洪兴股份", code: "001209", price: 24.45, change: -1.41, volumeRatio: 2.4, cyqProfit: 97, score: 100 },
+            { name: "凯瑞德", code: "002072", price: 7.77, change: -7.50, volumeRatio: 2.4, cyqProfit: 98, score: 100 },
+            { name: "汉森制药", code: "002412", price: 8.02, change: 5.67, volumeRatio: 3.6, cyqProfit: 98, score: 100 },
+            { name: "盘龙药业", code: "002864", price: 36.71, change: -1.45, volumeRatio: 2.7, cyqProfit: 97, score: 100 },
+            { name: "天元股份", code: "003003", price: 14.31, change: -0.90, volumeRatio: 2.7, cyqProfit: 98, score: 100 },
+            { name: "佳创视讯", code: "300264", price: 8.54, change: 5.69, volumeRatio: 2.6, cyqProfit: 100, score: 100 },
+            { name: "花园生物", code: "300401", price: 18.22, change: -4.86, volumeRatio: 2.1, cyqProfit: 100, score: 100 },
+            { name: "中环海陆", code: "301040", price: 37.43, change: -1.47, volumeRatio: 2.1, cyqProfit: 98, score: 100 },
+            { name: "美农生物", code: "301156", price: 20.22, change: -0.59, volumeRatio: 2.5, cyqProfit: 98, score: 100 },
+            { name: "光大同创", code: "301387", price: 65.80, change: 5.18, volumeRatio: 2.1, cyqProfit: 100, score: 100 },
+            { name: "劲旅环境", code: "001230", price: 26.61, change: 7.73, volumeRatio: 2.1, cyqProfit: 93, score: 99 },
+            { name: "全新好", code: "000007", price: 12.30, change: 4.06, volumeRatio: 2.1, cyqProfit: 92, score: 98 },
+            { name: "安车检测", code: "300572", price: 30.77, change: 0.89, volumeRatio: 2.2, cyqProfit: 86, score: 98 },
+            { name: "中富电路", code: "300814", price: 77.55, change: 0.32, volumeRatio: 2.1, cyqProfit: 87, score: 97 }
+        ];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderStats();
+            renderHighlights();
+            renderStockList();
+            renderChart();
+        });
+
+        function renderStats() {
+            const total = stockData.length;
+            const avgScore = (stockData.reduce((a, b) => a + b.score, 0) / total).toFixed(1);
+            const avgChange = (stockData.reduce((a, b) => a + b.change, 0) / total).toFixed(2);
+            const highVol = stockData.filter(s => s.volumeRatio > 2).length;
+
+            document.getElementById('totalStocks').textContent = total;
+            document.getElementById('avgScore').textContent = avgScore;
+            document.getElementById('avgChange').textContent = `${avgChange > 0 ? '+' : ''}${avgChange}%`;
+            document.getElementById('highVolume').textContent = highVol;
+        }
+
+        function renderHighlights() {
+            // Breakout stocks
+            const breakout = stockData.filter(s => s.change > 5).slice(0, 5);
+            document.getElementById('breakoutList').innerHTML = breakout.map(s => `
+                <div class="highlight-item">
+                    <strong>${s.name}</strong> (${s.code})
+                    <span class="tag success">+${s.change.toFixed(2)}%</span>
+                    <span class="tag warning">量比${s.volumeRatio}x</span>
+                </div>
+            `).join('');
+
+            // Concentrated chips
+            const concentrated = stockData.filter(s => s.cyqProfit >= 100).slice(0, 5);
+            document.getElementById('concentratedList').innerHTML = concentrated.map(s => `
+                <div class="highlight-item">
+                    <strong>${s.name}</strong> (${s.code})
+                    <span class="tag success">CYQ ${s.cyqProfit}%</span>
+                    <span class="tag warning">得分 ${s.score}</span>
+                </div>
+            `).join('');
+        }
+
+        function renderStockList() {
+            const html = stockData.map(s => `
+                <div class="stock-card">
+                    <div class="stock-info">
+                        <h3>${s.name} <span class="code">(${s.code})</span></h3>
+                        <div class="stock-metrics">
+                            <div class="metric">
+                                <div class="metric-value ${s.change >= 0 ? 'positive' : 'negative'}">
+                                    ${s.change > 0 ? '+' : ''}${s.change.toFixed(2)}%
+                                </div>
+                                <div class="metric-label">涨幅</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value neutral">${s.volumeRatio}x</div>
+                                <div class="metric-label">量比</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value neutral">${s.cyqProfit}%</div>
+                                <div class="metric-label">CYQ获利</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stock-score">
+                        <div class="score-circle" style="--score: ${s.score}">
+                            <span>${s.score}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('stockList').innerHTML = html;
+        }
+
+        function renderChart() {
+            const ctx = document.getElementById('changeChart').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: stockData.map(s => s.code),
+                    datasets: [{
+                        label: '涨跌幅',
+                        data: stockData.map(s => s.change),
+                        backgroundColor: stockData.map(s => 
+                            s.change >= 0 ? 'rgba(16, 185, 129, 0.8)' : 'rgba(239, 68, 68, 0.8)'
+                        ),
+                        borderColor: stockData.map(s => 
+                            s.change >= 0 ? '#10b981' : '#ef4444'
+                        ),
+                        borderWidth: 1,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(255,255,255,0.1)' },
+                            ticks: { color: '#94a3b8' }
+                        },
+                        y: {
+                            grid: { color: 'rgba(255,255,255,0.1)' },
+                            ticks: { 
+                                color: '#94a3b8',
+                                callback: value => value + '%'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
