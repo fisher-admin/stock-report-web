@@ -14,8 +14,8 @@
         :root {
             --primary: #0066ff;
             --primary-light: #3385ff;
-            --success: #00c853;
-            --danger: #ff4757;
+            --success: #ff3547;  /* 涨=红 */
+            --danger: #00c851;   /* 跌=绿 */
             --warning: #ff9800;
             --bg: #f8f9fa;
             --card: #ffffff;
@@ -572,10 +572,10 @@
                         label: '涨跌幅',
                         data: stockData.map(s => s.change),
                         backgroundColor: stockData.map(s => 
-                            s.change >= 0 ? 'rgba(0, 200, 83, 0.85)' : 'rgba(255, 71, 87, 0.85)'
+                            s.change >= 0 ? 'rgba(255, 53, 71, 0.85)' : 'rgba(0, 200, 81, 0.85)'
                         ),
                         borderColor: stockData.map(s => 
-                            s.change >= 0 ? '#00c853' : '#ff4757'
+                            s.change >= 0 ? '#ff3547' : '#00c851'
                         ),
                         borderWidth: 2,
                         borderRadius: 8
