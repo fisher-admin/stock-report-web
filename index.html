@@ -12,22 +12,29 @@
         }
 
         :root {
-            --primary: #2563eb;
-            --success: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --bg: #0f172a;
-            --card: #1e293b;
-            --text: #f1f5f9;
+            --primary: #00d4ff;
+            --primary-dark: #0099cc;
+            --secondary: #7c3aed;
+            --success: #00ff88;
+            --danger: #ff4757;
+            --warning: #ffa502;
+            --bg: #0a0e1a;
+            --card: #111827;
+            --card-light: #1a2332;
+            --text: #ffffff;
             --text-muted: #94a3b8;
+            --gradient: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
             line-height: 1.6;
+            background-image: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(124, 58, 237, 0.08) 0%, transparent 50%);
         }
 
         .container {
@@ -39,12 +46,16 @@
         /* Header */
         header {
             text-align: center;
-            padding: 40px 20px;
-            background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
-            border-radius: 20px;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(124, 58, 237, 0.15) 100%);
+            border-radius: 24px;
             margin-bottom: 30px;
             position: relative;
             overflow: hidden;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            box-shadow: 
+                0 0 40px rgba(0, 212, 255, 0.1),
+                inset 0 0 60px rgba(0, 212, 255, 0.05);
         }
 
         header::before {
@@ -54,8 +65,8 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
-            animation: pulse 3s ease-in-out infinite;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 60%);
+            animation: pulse 4s ease-in-out infinite;
         }
 
         @keyframes pulse {
@@ -64,16 +75,25 @@
         }
 
         header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             position: relative;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
         }
 
         header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+            font-size: 1.2rem;
+            color: var(--text-muted);
             position: relative;
+        }
+
+        header p::before {
+            content: '⚡';
+            margin-right: 8px;
         }
 
         /* Stats Cards */
@@ -85,65 +105,93 @@
         }
 
         .stat-card {
-            background: var(--card);
+            background: linear-gradient(135deg, var(--card-light) 0%, var(--card) 100%);
             padding: 25px;
             border-radius: 16px;
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            border-color: var(--primary);
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
         }
 
         .stat-value {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: bold;
-            background: linear-gradient(135deg, var(--primary), #7c3aed);
+            background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            margin-bottom: 8px;
         }
 
         .stat-label {
             color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 5px;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         /* Chart Section */
         .chart-section {
-            background: var(--card);
+            background: linear-gradient(135deg, var(--card-light) 0%, var(--card) 100%);
             border-radius: 20px;
             padding: 30px;
             margin-bottom: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .chart-section h2 {
             margin-bottom: 20px;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chart-section h2::before {
+            content: '📊';
         }
 
         .chart-container {
             position: relative;
-            height: 300px;
+            height: 350px;
         }
 
         /* Stock List */
         .stock-section {
-            background: var(--card);
+            background: linear-gradient(135deg, var(--card-light) 0%, var(--card) 100%);
             border-radius: 20px;
             padding: 30px;
             margin-bottom: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .stock-section h2 {
-            margin-bottom: 20px;
-            font-size: 1.5rem;
+            margin-bottom: 25px;
+            font-size: 1.4rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stock-section h2::before {
+            content: '📋';
         }
 
         .stock-grid {
@@ -152,131 +200,219 @@
         }
 
         .stock-card {
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
-            padding: 20px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
+            border-radius: 16px;
+            padding: 20px 25px;
             display: grid;
             grid-template-columns: 1fr auto;
-            gap: 15px;
+            gap: 20px;
             align-items: center;
             transition: all 0.3s ease;
             border: 1px solid transparent;
         }
 
         .stock-card:hover {
-            background: rgba(255,255,255,0.1);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
             border-color: var(--primary);
-            transform: translateX(5px);
+            transform: translateX(8px);
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.2);
         }
 
         .stock-info h3 {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .stock-info .code {
-            color: var(--text-muted);
-            font-size: 0.85rem;
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-family: 'SF Mono', Monaco, monospace;
+            background: rgba(0, 212, 255, 0.1);
+            padding: 2px 10px;
+            border-radius: 6px;
         }
 
         .stock-metrics {
             display: flex;
-            gap: 20px;
+            gap: 30px;
             flex-wrap: wrap;
         }
 
         .metric {
-            text-align: center;
+            text-align: left;
         }
 
         .metric-value {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: bold;
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
         }
 
-        .metric-value.positive { color: var(--success); }
-        .metric-value.negative { color: var(--danger); }
-        .metric-value.neutral { color: var(--warning); }
+        .metric-value.positive { 
+            color: var(--success); 
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+        }
+        .metric-value.negative { 
+            color: var(--danger);
+            text-shadow: 0 0 10px rgba(255, 71, 87, 0.3);
+        }
+        .metric-value.neutral { 
+            color: var(--warning);
+            text-shadow: 0 0 10px rgba(255, 165, 2, 0.3);
+        }
 
         .metric-label {
             font-size: 0.75rem;
             color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .stock-score {
             text-align: center;
-            min-width: 80px;
+            min-width: 90px;
         }
 
         .score-circle {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             font-weight: bold;
-            background: conic-gradient(var(--primary) calc(var(--score) * 3.6deg), rgba(255,255,255,0.1) 0);
+            background: conic-gradient(
+                var(--primary) calc(var(--score) * 3.6deg),
+                rgba(0, 212, 255, 0.2) calc(var(--score) * 3.6deg)
+            );
             position: relative;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            animation: scoreGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes scoreGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(0, 212, 255, 0.5); }
         }
 
         .score-circle::before {
             content: '';
             position: absolute;
-            width: 50px;
-            height: 50px;
-            background: var(--card);
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--card-light) 0%, var(--card) 100%);
             border-radius: 50%;
         }
 
         .score-circle span {
             position: relative;
             z-index: 1;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         /* Highlights */
         .highlights {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
             margin-bottom: 30px;
         }
 
         .highlight-card {
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(124, 58, 237, 0.2));
-            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+            border-radius: 20px;
             padding: 25px;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient);
         }
 
         .highlight-card h3 {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
+            font-size: 1.2rem;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
         .highlight-item {
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+        }
+
+        .highlight-item:hover {
+            padding-left: 10px;
+            background: rgba(0, 212, 255, 0.05);
+            border-radius: 8px;
         }
 
         .highlight-item:last-child {
             border-bottom: none;
         }
 
-        .tag {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            margin-left: 10px;
+        .highlight-name {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .tag.success { background: rgba(16, 185, 129, 0.3); color: var(--success); }
-        .tag.warning { background: rgba(245, 158, 11, 0.3); color: var(--warning); }
-        .tag.danger { background: rgba(239, 68, 68, 0.3); color: var(--danger); }
+        .highlight-name .code {
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: rgba(0, 212, 255, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .tag {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .tag.success {
+            background: rgba(0, 255, 136, 0.15);
+            color: var(--success);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .tag.warning {
+            background: rgba(255, 165, 2, 0.15);
+            color: var(--warning);
+            border: 1px solid rgba(255, 165, 2, 0.3);
+        }
+
+        .tag.info {
+            background: rgba(0, 212, 255, 0.15);
+            color: var(--primary);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
 
         /* Footer */
         footer {
@@ -284,16 +420,28 @@
             padding: 30px;
             color: var(--text-muted);
             font-size: 0.9rem;
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            margin-top: 30px;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            header h1 { font-size: 1.8rem; }
-            .stock-card { grid-template-columns: 1fr; }
-            .stock-metrics { justify-content: space-around; }
+            header h1 { font-size: 2rem; }
+            .stock-card { grid-template-columns: 1fr; text-align: center; }
+            .stock-metrics { justify-content: center; }
+            .highlights { grid-template-columns: 1fr; }
         }
 
-        /* Loading Animation */
+        /* Loading */
         .loading {
             display: flex;
             justify-content: center;
@@ -304,7 +452,7 @@
         .spinner {
             width: 50px;
             height: 50px;
-            border: 3px solid rgba(255,255,255,0.1);
+            border: 3px solid rgba(0, 212, 255, 0.2);
             border-top-color: var(--primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
@@ -320,7 +468,7 @@
         <!-- Header -->
         <header>
             <h1>🤖 A股量化精选报告</h1>
-            <p>深市CYQ筹码分析 | 2026-02-09</p>
+            <p>深市CYQ筹码分析</p>
         </header>
 
         <!-- Stats -->
@@ -357,7 +505,7 @@
 
         <!-- Stock List -->
         <div class="stock-section">
-            <h2>📊 精选股票列表</h2>
+            <h2>📋 精选股票列表</h2>
             <div class="stock-grid" id="stockList">
                 <div class="loading"><div class="spinner"></div></div>
             </div>
@@ -365,7 +513,7 @@
 
         <!-- Charts -->
         <div class="chart-section">
-            <h2>📈 涨跌幅分布</h2>
+            <h2>📊 涨跌幅分布</h2>
             <div class="chart-container">
                 <canvas id="changeChart"></canvas>
             </div>
@@ -418,22 +566,32 @@
 
         function renderHighlights() {
             // Breakout stocks
-            const breakout = stockData.filter(s => s.change > 5).slice(0, 5);
+            const breakout = stockData.filter(s => s.change > 5).sort((a, b) => b.change - a.change).slice(0, 5);
             document.getElementById('breakoutList').innerHTML = breakout.map(s => `
                 <div class="highlight-item">
-                    <strong>${s.name}</strong> (${s.code})
-                    <span class="tag success">+${s.change.toFixed(2)}%</span>
-                    <span class="tag warning">量比${s.volumeRatio}x</span>
+                    <span class="highlight-name">
+                        ${s.name}
+                        <span class="code">${s.code}</span>
+                    </span>
+                    <div style="display: flex; gap: 8px;">
+                        <span class="tag success">+${s.change.toFixed(2)}%</span>
+                        <span class="tag info">量比${s.volumeRatio}x</span>
+                    </div>
                 </div>
             `).join('');
 
             // Concentrated chips
-            const concentrated = stockData.filter(s => s.cyqProfit >= 100).slice(0, 5);
+            const concentrated = stockData.filter(s => s.cyqProfit >= 100).sort((a, b) => b.cyqProfit - a.cyqProfit).slice(0, 5);
             document.getElementById('concentratedList').innerHTML = concentrated.map(s => `
                 <div class="highlight-item">
-                    <strong>${s.name}</strong> (${s.code})
-                    <span class="tag success">CYQ ${s.cyqProfit}%</span>
-                    <span class="tag warning">得分 ${s.score}</span>
+                    <span class="highlight-name">
+                        ${s.name}
+                        <span class="code">${s.code}</span>
+                    </span>
+                    <div style="display: flex; gap: 8px;">
+                        <span class="tag success">CYQ ${s.cyqProfit}%</span>
+                        <span class="tag info">得分 ${s.score}</span>
+                    </div>
                 </div>
             `).join('');
         }
@@ -442,7 +600,7 @@
             const html = stockData.map(s => `
                 <div class="stock-card">
                     <div class="stock-info">
-                        <h3>${s.name} <span class="code">(${s.code})</span></h3>
+                        <h3>${s.name} <span class="code">${s.code}</span></h3>
                         <div class="stock-metrics">
                             <div class="metric">
                                 <div class="metric-value ${s.change >= 0 ? 'positive' : 'negative'}">
@@ -451,11 +609,15 @@
                                 <div class="metric-label">涨幅</div>
                             </div>
                             <div class="metric">
-                                <div class="metric-value neutral">${s.volumeRatio}x</div>
+                                <div class="metric-value neutral">
+                                    ${s.volumeRatio}x
+                                </div>
                                 <div class="metric-label">量比</div>
                             </div>
                             <div class="metric">
-                                <div class="metric-value neutral">${s.cyqProfit}%</div>
+                                <div class="metric-value neutral" style="color: var(--primary);">
+                                    ${s.cyqProfit}%
+                                </div>
                                 <div class="metric-label">CYQ获利</div>
                             </div>
                         </div>
@@ -482,12 +644,12 @@
                         label: '涨跌幅',
                         data: stockData.map(s => s.change),
                         backgroundColor: stockData.map(s => 
-                            s.change >= 0 ? 'rgba(16, 185, 129, 0.8)' : 'rgba(239, 68, 68, 0.8)'
+                            s.change >= 0 ? 'rgba(0, 255, 136, 0.8)' : 'rgba(255, 71, 87, 0.8)'
                         ),
                         borderColor: stockData.map(s => 
-                            s.change >= 0 ? '#10b981' : '#ef4444'
+                            s.change >= 0 ? '#00ff88' : '#ff4757'
                         ),
-                        borderWidth: 1,
+                        borderWidth: 2,
                         borderRadius: 8
                     }]
                 },
@@ -499,11 +661,14 @@
                     },
                     scales: {
                         x: {
-                            grid: { color: 'rgba(255,255,255,0.1)' },
-                            ticks: { color: '#94a3b8' }
+                            grid: { color: 'rgba(0, 212, 255, 0.1)' },
+                            ticks: { 
+                                color: '#94a3b8',
+                                font: { family: 'SF Mono, Monaco, monospace' }
+                            }
                         },
                         y: {
-                            grid: { color: 'rgba(255,255,255,0.1)' },
+                            grid: { color: 'rgba(0, 212, 255, 0.1)' },
                             ticks: { 
                                 color: '#94a3b8',
                                 callback: value => value + '%'
