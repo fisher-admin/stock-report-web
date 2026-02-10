@@ -12,18 +12,18 @@
         }
 
         :root {
-            --primary: #00d4ff;
-            --primary-dark: #0099cc;
-            --secondary: #7c3aed;
-            --success: #00ff88;
+            --primary: #0066ff;
+            --primary-light: #3385ff;
+            --success: #00c853;
             --danger: #ff4757;
-            --warning: #ffa502;
-            --bg: #0a0e1a;
-            --card: #111827;
-            --card-light: #1a2332;
-            --text: #ffffff;
-            --text-muted: #94a3b8;
-            --gradient: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
+            --warning: #ff9800;
+            --bg: #f8f9fa;
+            --card: #ffffff;
+            --card-light: #ffffff;
+            --text: #1a1a2e;
+            --text-muted: #6c757d;
+            --border: #e9ecef;
+            --shadow: 0 4px 20px rgba(0, 102, 255, 0.08);
         }
 
         body {
@@ -32,9 +32,6 @@
             color: var(--text);
             min-height: 100vh;
             line-height: 1.6;
-            background-image: 
-                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(124, 58, 237, 0.08) 0%, transparent 50%);
         }
 
         .container {
@@ -46,16 +43,13 @@
         /* Header */
         header {
             text-align: center;
-            padding: 50px 20px;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(124, 58, 237, 0.15) 100%);
+            padding: 50px 30px;
+            background: linear-gradient(135deg, var(--primary) 0%, #0066ff 50%, #5c6bc0 100%);
             border-radius: 24px;
             margin-bottom: 30px;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            box-shadow: 
-                0 0 40px rgba(0, 212, 255, 0.1),
-                inset 0 0 60px rgba(0, 212, 255, 0.05);
+            box-shadow: 0 8px 30px rgba(0, 102, 255, 0.2);
         }
 
         header::before {
@@ -65,35 +59,21 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 60%);
-            animation: pulse 4s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.8; }
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%);
         }
 
         header h1 {
             font-size: 2.8rem;
             margin-bottom: 12px;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #ffffff;
             position: relative;
-            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         header p {
             font-size: 1.2rem;
-            color: var(--text-muted);
+            color: rgba(255,255,255,0.9);
             position: relative;
-        }
-
-        header p::before {
-            content: '⚡';
-            margin-right: 8px;
         }
 
         /* Stats Cards */
@@ -105,62 +85,53 @@
         }
 
         .stat-card {
-            background: linear-gradient(135deg, var(--card-light) 0%, var(--card) 100%);
-            padding: 25px;
+            background: var(--card);
+            padding: 28px 24px;
             border-radius: 16px;
             text-align: center;
             transition: all 0.3s ease;
-            border: 1px solid rgba(0, 212, 255, 0.1);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
         }
 
         .stat-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 102, 255, 0.12);
+            border-color: var(--primary-light);
         }
 
         .stat-value {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             font-weight: bold;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--primary);
             margin-bottom: 8px;
         }
 
         .stat-label {
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
         /* Chart Section */
         .chart-section {
-            background: linear-gradient(135deg, var(--card-light) 0%, var(--card) 100%);
+            background: var(--card);
             border-radius: 20px;
             padding: 30px;
             margin-bottom: 30px;
-            border: 1px solid rgba(0, 212, 255, 0.1);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
         }
 
         .chart-section h2 {
             margin-bottom: 20px;
             font-size: 1.4rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text);
             display: flex;
             align-items: center;
             gap: 10px;
-        }
-
-        .chart-section h2::before {
-            content: '📊';
         }
 
         .chart-container {
@@ -170,28 +141,21 @@
 
         /* Stock List */
         .stock-section {
-            background: linear-gradient(135deg, var(--card-light) 0%, var(--card) 100%);
+            background: var(--card);
             border-radius: 20px;
             padding: 30px;
             margin-bottom: 30px;
-            border: 1px solid rgba(0, 212, 255, 0.1);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
         }
 
         .stock-section h2 {
             margin-bottom: 25px;
             font-size: 1.4rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text);
             display: flex;
             align-items: center;
             gap: 10px;
-        }
-
-        .stock-section h2::before {
-            content: '📋';
         }
 
         .stock-grid {
@@ -200,44 +164,44 @@
         }
 
         .stock-card {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
             border-radius: 16px;
-            padding: 20px 25px;
+            padding: 22px 26px;
             display: grid;
             grid-template-columns: 1fr auto;
             gap: 20px;
             align-items: center;
             transition: all 0.3s ease;
-            border: 1px solid transparent;
+            border: 1px solid var(--border);
         }
 
         .stock-card:hover {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
-            border-color: var(--primary);
-            transform: translateX(8px);
-            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.2);
+            background: #ffffff;
+            border-color: var(--primary-light);
+            box-shadow: 0 8px 30px rgba(0, 102, 255, 0.1);
+            transform: translateX(6px);
         }
 
         .stock-info h3 {
             font-size: 1.2rem;
             margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            color: var(--text);
         }
 
         .stock-info .code {
             color: var(--primary);
             font-size: 0.9rem;
+            font-weight: 600;
             font-family: 'SF Mono', Monaco, monospace;
-            background: rgba(0, 212, 255, 0.1);
-            padding: 2px 10px;
+            background: rgba(0, 102, 255, 0.08);
+            padding: 3px 12px;
             border-radius: 6px;
+            margin-left: 10px;
         }
 
         .stock-metrics {
             display: flex;
-            gap: 30px;
+            gap: 35px;
             flex-wrap: wrap;
         }
 
@@ -248,29 +212,18 @@
         .metric-value {
             font-size: 1.3rem;
             font-weight: bold;
-            display: flex;
-            align-items: baseline;
-            gap: 4px;
         }
 
-        .metric-value.positive { 
-            color: var(--success); 
-            text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
-        }
-        .metric-value.negative { 
-            color: var(--danger);
-            text-shadow: 0 0 10px rgba(255, 71, 87, 0.3);
-        }
-        .metric-value.neutral { 
-            color: var(--warning);
-            text-shadow: 0 0 10px rgba(255, 165, 2, 0.3);
-        }
+        .metric-value.positive { color: var(--success); }
+        .metric-value.negative { color: var(--danger); }
+        .metric-value.neutral { color: var(--primary); }
 
         .metric-label {
             font-size: 0.75rem;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 1px;
+            margin-top: 2px;
         }
 
         .stock-score {
@@ -289,16 +242,14 @@
             font-weight: bold;
             background: conic-gradient(
                 var(--primary) calc(var(--score) * 3.6deg),
-                rgba(0, 212, 255, 0.2) calc(var(--score) * 3.6deg)
+                #e9ecef calc(var(--score) * 3.6deg)
             );
             position: relative;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
-            animation: scoreGlow 2s ease-in-out infinite;
+            transition: all 0.3s ease;
         }
 
-        @keyframes scoreGlow {
-            0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
-            50% { box-shadow: 0 0 30px rgba(0, 212, 255, 0.5); }
+        .score-circle:hover {
+            transform: scale(1.05);
         }
 
         .score-circle::before {
@@ -306,17 +257,14 @@
             position: absolute;
             width: 56px;
             height: 56px;
-            background: linear-gradient(135deg, var(--card-light) 0%, var(--card) 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
             border-radius: 50%;
         }
 
         .score-circle span {
             position: relative;
             z-index: 1;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--primary);
         }
 
         /* Highlights */
@@ -328,27 +276,17 @@
         }
 
         .highlight-card {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+            background: var(--card);
             border-radius: 20px;
-            padding: 25px;
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .highlight-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--gradient);
+            padding: 26px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
         }
 
         .highlight-card h3 {
             margin-bottom: 18px;
             font-size: 1.2rem;
+            color: var(--text);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -356,7 +294,7 @@
 
         .highlight-item {
             padding: 14px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -364,9 +302,11 @@
         }
 
         .highlight-item:hover {
-            padding-left: 10px;
-            background: rgba(0, 212, 255, 0.05);
+            padding-left: 8px;
+            background: rgba(0, 102, 255, 0.03);
             border-radius: 8px;
+            margin: 0 -10px;
+            padding: 14px 10px;
         }
 
         .highlight-item:last-child {
@@ -384,34 +324,31 @@
             font-family: 'SF Mono', Monaco, monospace;
             font-size: 0.8rem;
             color: var(--text-muted);
-            background: rgba(0, 212, 255, 0.1);
+            background: #f1f3f4;
             padding: 2px 8px;
             border-radius: 4px;
         }
 
         .tag {
-            padding: 4px 12px;
+            padding: 4px 14px;
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
         }
 
         .tag.success {
-            background: rgba(0, 255, 136, 0.15);
+            background: rgba(0, 200, 83, 0.1);
             color: var(--success);
-            border: 1px solid rgba(0, 255, 136, 0.3);
         }
 
         .tag.warning {
-            background: rgba(255, 165, 2, 0.15);
+            background: rgba(255, 152, 0, 0.1);
             color: var(--warning);
-            border: 1px solid rgba(255, 165, 2, 0.3);
         }
 
         .tag.info {
-            background: rgba(0, 212, 255, 0.15);
+            background: rgba(0, 102, 255, 0.1);
             color: var(--primary);
-            border: 1px solid rgba(0, 212, 255, 0.3);
         }
 
         /* Footer */
@@ -420,17 +357,8 @@
             padding: 30px;
             color: var(--text-muted);
             font-size: 0.9rem;
-            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            border-top: 1px solid var(--border);
             margin-top: 30px;
-        }
-
-        footer a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
         }
 
         /* Responsive */
@@ -452,7 +380,7 @@
         .spinner {
             width: 50px;
             height: 50px;
-            border: 3px solid rgba(0, 212, 255, 0.2);
+            border: 3px solid var(--border);
             border-top-color: var(--primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
@@ -600,7 +528,7 @@
             const html = stockData.map(s => `
                 <div class="stock-card">
                     <div class="stock-info">
-                        <h3>${s.name} <span class="code">${s.code}</span></h3>
+                        <h3>${s.name}<span class="code">${s.code}</span></h3>
                         <div class="stock-metrics">
                             <div class="metric">
                                 <div class="metric-value ${s.change >= 0 ? 'positive' : 'negative'}">
@@ -615,7 +543,7 @@
                                 <div class="metric-label">量比</div>
                             </div>
                             <div class="metric">
-                                <div class="metric-value neutral" style="color: var(--primary);">
+                                <div class="metric-value neutral">
                                     ${s.cyqProfit}%
                                 </div>
                                 <div class="metric-label">CYQ获利</div>
@@ -644,10 +572,10 @@
                         label: '涨跌幅',
                         data: stockData.map(s => s.change),
                         backgroundColor: stockData.map(s => 
-                            s.change >= 0 ? 'rgba(0, 255, 136, 0.8)' : 'rgba(255, 71, 87, 0.8)'
+                            s.change >= 0 ? 'rgba(0, 200, 83, 0.85)' : 'rgba(255, 71, 87, 0.85)'
                         ),
                         borderColor: stockData.map(s => 
-                            s.change >= 0 ? '#00ff88' : '#ff4757'
+                            s.change >= 0 ? '#00c853' : '#ff4757'
                         ),
                         borderWidth: 2,
                         borderRadius: 8
@@ -661,16 +589,16 @@
                     },
                     scales: {
                         x: {
-                            grid: { color: 'rgba(0, 212, 255, 0.1)' },
+                            grid: { display: false },
                             ticks: { 
-                                color: '#94a3b8',
+                                color: '#6c757d',
                                 font: { family: 'SF Mono, Monaco, monospace' }
                             }
                         },
                         y: {
-                            grid: { color: 'rgba(0, 212, 255, 0.1)' },
+                            grid: { color: '#e9ecef' },
                             ticks: { 
-                                color: '#94a3b8',
+                                color: '#6c757d',
                                 callback: value => value + '%'
                             }
                         }
