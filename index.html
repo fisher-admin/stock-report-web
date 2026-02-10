@@ -12,18 +12,18 @@
         }
 
         :root {
-            --primary: #0066ff;
-            --primary-light: #3385ff;
+            --primary: #00d4ff;
+            --primary-light: #00b8ff;
             --success: #ff3547;  /* 涨=红 */
             --danger: #00c851;   /* 跌=绿 */
-            --warning: #ff9800;
-            --bg: #f8f9fa;
-            --card: #ffffff;
-            --card-light: #ffffff;
-            --text: #1a1a2e;
-            --text-muted: #6c757d;
-            --border: #e9ecef;
-            --shadow: 0 4px 20px rgba(0, 102, 255, 0.08);
+            --warning: #ffa502;
+            --bg: #0a0e1a;
+            --card: #111827;
+            --card-light: #1a2332;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --border: rgba(0, 212, 255, 0.1);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         body {
@@ -32,6 +32,9 @@
             color: var(--text);
             min-height: 100vh;
             line-height: 1.6;
+            background-image: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(124, 58, 237, 0.08) 0%, transparent 50%);
         }
 
         .container {
@@ -85,12 +88,13 @@
         }
 
         .stat-card {
-            background: var(--card);
+            background: linear-gradient(135deg, var(--card-light) 0%, var(--card) 100%);
             padding: 28px 24px;
             border-radius: 16px;
             text-align: center;
             transition: all 0.3s ease;
             border: 1px solid var(--border);
+            box-shadow: var(--shadow);
             box-shadow: var(--shadow);
         }
 
@@ -117,11 +121,12 @@
 
         /* Chart Section */
         .chart-section {
-            background: var(--card);
+            background: linear-gradient(135deg, var(--card-light) 0%, var(--card) 100%);
             border-radius: 20px;
             padding: 30px;
             margin-bottom: 30px;
             border: 1px solid var(--border);
+            box-shadow: var(--shadow);
             box-shadow: var(--shadow);
         }
 
@@ -141,11 +146,12 @@
 
         /* Stock List */
         .stock-section {
-            background: var(--card);
+            background: linear-gradient(135deg, var(--card-light) 0%, var(--card) 100%);
             border-radius: 20px;
             padding: 30px;
             margin-bottom: 30px;
             border: 1px solid var(--border);
+            box-shadow: var(--shadow);
             box-shadow: var(--shadow);
         }
 
@@ -173,6 +179,7 @@
             align-items: center;
             transition: all 0.3s ease;
             border: 1px solid var(--border);
+            box-shadow: var(--shadow);
         }
 
         .stock-card:hover {
@@ -276,10 +283,11 @@
         }
 
         .highlight-card {
-            background: var(--card);
+            background: linear-gradient(135deg, var(--card-light) 0%, var(--card) 100%);
             border-radius: 20px;
             padding: 26px;
             border: 1px solid var(--border);
+            box-shadow: var(--shadow);
             box-shadow: var(--shadow);
         }
 
